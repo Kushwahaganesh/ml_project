@@ -83,7 +83,7 @@ def run():
         prediction = model.predict(features)
         lc = [str(i) for i in prediction]
         ans = int("".join(lc))
-        if ans = 0:
+        if ans == 0:
             st.error(
                 "Hello: " + fn +" || "
                 "Account number: "+account_no +' || '
