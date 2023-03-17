@@ -3,13 +3,13 @@ from PIL import Image
 import pickle
 
 
-model = pickle.load(open('model.pkl', 'rb'))
+model = pickle.load(open('./Model/ML_Model.pkl', 'rb'))
 
 def run():
     img1 = Image.open('bank.png')
     img1 = img1.resize((156,145))
     st.image(img1,use_column_width=False)
-    st.title("Bank Loan Prediction")
+    st.title("Bank Loan Prediction using Machine Learning")
 
     ## Account No
     account_no = st.text_input('Account number')
@@ -53,13 +53,13 @@ def run():
     cred = st.selectbox("Credit Score",cred_options, format_func=lambda x: cred_display[x])
 
     ## Applicant Monthly Income
-    mon_income = st.number_input("Applicant's Monthly Income(₹)",value=0)
+    mon_income = st.number_input("Applicant's Monthly Income($)",value=0)
 
     ## Co-Applicant Monthly Income
-    co_mon_income = st.number_input("Co-Applicant's Monthly Income(₹)",value=0)
+    co_mon_income = st.number_input("Co-Applicant's Monthly Income($)",value=0)
 
     ## Loan AMount
-    loan_amt = st.number_input("Loan Amount(₹)",value=0)
+    loan_amt = st.number_input("Loan Amount",value=0)
 
     ## loan duration
     dur_display = ['2 Month','6 Month','8 Month','1 Year','16 Month']
@@ -69,35 +69,31 @@ def run():
     if st.button("Submit"):
         duration = 0
         if dur == 0:
-            
-            
             duration = 60
         if dur == 1:
-            duration = 120
-        if dur == 2:
             duration = 180
-        if dur == 3:
+        if dur == 2:
             duration = 240
+        if dur == 3:
+            duration = 360
         if dur == 4:
-            duration = 320
-        
-     
+            duration = 480
         features = [[gen, mar, dep, edu, emp, mon_income, co_mon_income, loan_amt, duration, cred, prop]]
         print(features)
         prediction = model.predict(features)
         lc = [str(i) for i in prediction]
         ans = int("".join(lc))
-        if ans == 1:
+        if ans == 0:
             st.error(
                 "Hello: " + fn +" || "
                 "Account number: "+account_no +' || '
-                'According to our Calculations, you will not get the loan from Bank.'
+                'According to our Calculations, you will not get the loan from Bank'
             )
         else:
             st.success(
                 "Hello: " + fn +" || "
                 "Account number: "+account_no +' || '
-                'Congratulations!! you will get the loan from Bank.'
-           ) 
-           
+                'Congratulations!! you will get the loan from Bank'
+            )
+
 run()
