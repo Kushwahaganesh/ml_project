@@ -67,19 +67,21 @@ def run():
     dur = st.selectbox("Loan Duration",dur_options, format_func=lambda x: dur_display[x])
 
     if st.button("Submit"):
-        
         duration = 0
-     if dur == 0:
-        duration = 60
-       
-     if dur == 1:
-        duration = 180
-     if dur == 2:
-        duration = 240
-      if dur == 3:
-         duration = 360
-      if dur == 4:
-         duration = 480
+        if dur == 0:
+            
+            
+            duration = 60
+        if dur == 1:
+            duration = 120
+        if dur == 2:
+            duration = 180
+        if dur == 3:
+            duration = 240
+        if dur == 4:
+            duration = 320
+        
+     
         features = [[gen, mar, dep, edu, emp, mon_income, co_mon_income, loan_amt, duration, cred, prop]]
         print(features)
         prediction = model.predict(features)
